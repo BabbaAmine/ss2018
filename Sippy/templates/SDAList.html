@@ -32,30 +32,53 @@
         }
     </style>
     </head>
-<body>
+<body style="background-color: #007bff1c;" >
+<div id="content">
+<div id="output">
+    <div class="ajaxProgress">
 
+        <center><h3 style="  margin-top: 80px;
+                             margin-left: 100px;
+                ">Please wait .... </h3></center>
+        <img src="https://i.gifer.com/7YQl.gif" style= "         margin-left: 300px;
+                                                                 width: 800px;
+                                                                 height: 400px;
+                                                                 background-color: #007bff1c;
+    												">
+    </div>
+</div>
+<figure>
+ <img src="http://www.keejob.com/media/recruiter/recruiter_11351/logo-11351-20161002-164843.png" alt="logo"
+      style="                    width: 350px;
+                                 margin-left: 500px;
+                                 margin-top: 40px;
+	           ">
+</figure>
  <center> <h4> SDA list </h4></center>
  <table class="table DID_table col-md-6" id="customers">
-   <thead>
-    <th>Description</th><th> i_vendor </th><th> i_ivr_application </th><th>did </th>
-    <th>buying_i_dids..</th><th>incoming_did</th><th> translation_rule </th><th> i_connection </th><th> i_did </th>
-    <th> i_account </th><th> i_dids_charging_group </th><th> cli_translation_rule </th>
+  <thead>
+    <th> did  </th><th> incoming_did  </th><th> delegated_to</th><th>i_did </th>
+    <th>description</th><th>i_ivr_application </th><th> i_account </th><th> i_vendor  </th>
+    <th> i_connection </th><th> i_did_delegation </th>
     </thead>
         <tbody>
         {% for d in SDAList %}
         <tr>
-        <td>{{ d.description  }}</td>
-        <td>{{ d.i_vendor  }}</td>
-        <td><a href="">{{ d.delegated_to }} </a></td>
         <td>{{ d.did  }}</td>
-        <td>{{ d.buying_i_dids_charging_group  }}</td>
         <td>{{ d.incoming_did  }}</td>
-            <td>{{ d.parent_i_did_delegation  }}</td>
-        <td>{{ d.translation_rule  }}</td>
+
+            {% if d.delegated_to != '' and d.delegated_to != null %}
+                <td><a href="{% url 'infoCustomer' name=d.delegated_to %}">{{ d.delegated_to }} </a> </td>
+                {% else %}
+                 <td><a href="">{{ d.delegated_to }} </a> </td>
+            {% endif %}
         <td>{{ d.i_did  }}</td>
+        <td>{{ d.description  }}</td>
+            <td>{{ d.i_ivr_application  }}</td>
+        <td>{{ d.i_account  }}</td>
+        <td>{{ d.i_vendor  }}</td>
+        <td>{{ d.i_connection  }}</td>
         <td>{{ d.i_did_delegation  }}</td>
-        <td>{{ d.i_dids_charging_group  }}</td>
-        <td>{{ d.cli_translation_rule  }}</td>
 
         </tr>
         {% endfor %}
@@ -68,6 +91,13 @@
         $(".DID_table").DataTable();
     })
     </script>
-
+</div>
+<script type="text/javascript">// <![CDATA[
+        function preloader(){
+            document.getElementById("output").style.display = "none";
+            document.getElementById("content").style.display = "block";
+        }//preloader
+        window.onload = preloader;
+// ]]></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>  Info Customer  </title>
+    <title>  Info Account  </title>
     <style>
 
         .modal {
@@ -179,7 +179,7 @@ table {
 	           ">
 </figure>
 
-    <center>  <button id="myBtn"> <h2 style="color: #03415e"> <B> Info Customer for '{{ customer.name  }}' </B></h2> </button> </center>
+    <center>  <button id="myBtn"> <h2 style="color: #03415e"> <B> Info Account for '{{ customer.name  }}' </B></h2> </button> </center>
 
     <body style="background-color: #007bff1c;" >
 <!-- The Modal -->
@@ -192,56 +192,60 @@ table {
      <table class="table DID_table col-md-6" >
           <tbody>
    <tr>
-      <th>Name</th>
-       <th> {{ customer.name }}</th>
+      <th>Username</th>
+       <th> {{ Account.username }}</th>
    </tr>
          <tr>
-             <th> E-mail</th>
-             <th>{{ customer.email }}</th>
+             <th> authname </th>
+             <th>{{ Account.authname  }}</th>
          </tr>
          <tr>
-             <th> Balance</th>
-             <th>{{ customer.balance }}</th>
+             <th> credit_limit </th>
+             <th>{{ Account.credit_limit  }}</th>
          </tr>
          <tr>
-             <th> Credit_limit</th>
-             <th>{{ customer.credit_limit }}</th>
+             <th> i_account_class </th>
+             <th>{{ Account.i_account_class  }}</th>
          </tr>
          <tr>
-             <th> Web_login</th>
-             <th>{{ customer.web_login }}</th>
+             <th> i_time_zone </th>
+             <th>{{ Account.i_time_zone  }}</th>
          </tr>
          <tr>
-             <th> i_routing_group</th>
-             <th>{{ customer.i_routing_group }}</th>
+             <th> balance </th>
+             <th>{{ Account.balance  }}</th>
          </tr>
          <tr>
-             <th> i_tarrif </th>
-             <th>{{ customer.i_tariff }}</th>
+             <th> blocked  </th>
+             <th>{{ Account.blocked  }}</th>
          </tr>
          <tr>
-             <th> did_pool_enable</th>
-             <th>{{ customer.did_pool_enabled }}</th>
+             <th> payment_currency </th>
+             <th>{{ Account.payment_currency  }}</th>
          </tr>
          <tr>
-             <th> debit_credit_cards_enable</th>
-             <th>{{ customer.debit_credit_cards_enabled }}</th>
+             <th> payment_method </th>
+             <th>{{ Account.payment_method  }}</th>
          </tr>
           <tr>
-             <th> dncl_enable</th>
-             <th>{{ customer.dncl_enabled }}</th>
+             <th> lifetime </th>
+             <th>{{ Account.lifetime  }}</th>
          </tr>
          <tr>
-             <th> i_lang</th>
-             <th>{{ customer.i_lang }}</th>
+             <th> company_name </th>
+             <th>{{ Account.company_name  }}</th>
          </tr>
           <tr>
-             <th> max_calls_per_second </th>
-             <th>{{ customer.max_calls_per_second }}</th>
+             <th> first use  </th>
+             <th>{{ Account.first_use  }}</th>
          </tr>
           <tr>
-             <th> max_sessions  </th>
-             <th>{{ customer.max_sessions  }}</th>
+             <th> updated by   </th>
+             <th>{{ Account.updated_by   }}</th>
+         </tr>
+           <tr>
+             <th> created by </th>
+             <th>{{ Account.created_by }}</th>
          </tr>
           </tbody>
      </table>
