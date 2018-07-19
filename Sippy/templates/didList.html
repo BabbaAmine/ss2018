@@ -1,3 +1,4 @@
+{% load static %}
 <html>
     <head>
     <title>DIDs list</title>
@@ -59,13 +60,23 @@
  <center> <h4> DIDs List </h4></center>
  <table class="table DID_table col-md-6" id="customers">
    <thead>
-    <th> did  </th><th> incoming_did  </th><th> delegated_to</th><th>i_did </th>
+    <th> Statut </th><th> did  </th><th> incoming_did  </th><th> delegated_to</th><th>i_did </th>
     <th>description</th><th>i_ivr_application </th><th> i_account </th><th> i_vendor  </th>
     <th> i_connection </th><th> i_did_delegation </th>
     </thead>
         <tbody>
         {% for d in dids %}
       <tr>
+
+      {% if d.status == 0 %}
+            <td> <img src="/static/img/ok.png" style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
+      {% endif %}
+      {% if d.status == 1 %}
+            <td> <img src="/static/img/blocked.png" style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
+      {% endif %}
+      {% if d.status == -1 %}
+            <td> No Account </td>
+      {% endif %}
           {% if d.i_account != '' and d.i_account != null %}
         <td><a href=" {% url 'infoAccount' i_account=d.i_account %}">{{ d.did  }}  </a></td>
                 {% else %}

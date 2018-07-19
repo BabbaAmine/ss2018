@@ -31,9 +31,13 @@ def didList(request):
     client = ServerProxy("https://ssp-root:123456go@sva.yooth-it.com/xmlapi/xmlapi", transport)
     res = client.getDIDsList({'i_wholesaler': 338})
 
+
+
     listdidwithCustomers=[]
     listcustid=[]
-    listcustidName=[{'id':int,'name':str}]
+    listAccountId=[]
+    listcustidName=[]
+    listAccountstatus=[]
     result=res['dids']
 
     for item in result:
@@ -41,6 +45,15 @@ def didList(request):
             i_customer = int(item['delegated_to'])
             if(i_customer not in listcustid):
                 listcustid.append(i_customer)
+
+        if('i_account' in item and item['i_account']!='' and item['i_account']!=None):
+            i_account=item['i_account']
+            if(i_account not in listAccountId):
+               listAccountId.append(i_account)
+
+    #print(listAccountId)
+
+
     for i in listcustid:
         transport = HTTPSDigestAuthTransport()
         client = ServerProxy("https://ssp-root:123456go@sva.yooth-it.com/xmlapi/xmlapi", transport)
@@ -48,14 +61,26 @@ def didList(request):
         custRes = ress['customer']
         listcustidName.append({'id':i,'name':custRes['name']})
 
+    for n in listAccountId:
+        transport = HTTPSDigestAuthTransport()
+        client = ServerProxy("https://ssp-root:123456go@sva.yooth-it.com/xmlapi/xmlapi", transport)
+        resA = client.getAccountInfo({'i_account': n})
+        accountRes = resA
+        listAccountstatus.append({'id':n,'status':accountRes['blocked']})
 
-    for j in listcustidName:
-        print(j)
-    print('*****************finish*****************')
-
-
+    print(listAccountstatus)
+    print(listcustidName)
 
     for r in result:
+        if ('i_account' in r and r['i_account'] != '' and r['i_account'] != None):
+            i_acc=int(r['i_account'])
+            for o in listAccountstatus:
+                if(o['id']==i_acc):
+                    r['status']=o['status']
+
+        else:
+            r['status']=-1
+
         if('delegated_to' in r and r['delegated_to']!=''):
             i_customer=int(r['delegated_to'])
 
@@ -73,8 +98,7 @@ def didList(request):
 
 
 
-    #print('Result: ' + res['result'])
-    #print(res['dids'][5])
+
 
     return render(request, 'didList.html', {'dids':listdidwithCustomers})
 
