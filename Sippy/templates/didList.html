@@ -1,13 +1,41 @@
-{% load static %}
 <html>
-    <head>
+<head>
     <title>DIDs list</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link href="/static/css/menu.css" rel="stylesheet" id="bootstrap-css">
+    <script src="/static/js/js.js"></script>
 
-        <style>
+    <style>
+
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(/static/img/Preloader.gif) center no-repeat #fff;
+        }
+
         #customers {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             border-collapse: collapse;
@@ -20,9 +48,13 @@
             padding: 18px;
         }
 
-        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-        #customers tr:hover {background-color: #ddd;}
+        #customers tr:hover {
+            background-color: #ddd;
+        }
 
         #customers th {
             padding-top: 17px;
@@ -33,95 +65,171 @@
         }
     </style>
 
-    </head>
- <body style="background-color: #007bff1c;" >
-<div id="content">
-<div id="output">
-    <div class="ajaxProgress">
+</head>
+<body style="background-color: #007bff1c;">
 
-        <center><h3 style="  margin-top: 80px;
-                             margin-left: 100px;
-                ">Please wait .... </h3></center>
-        <img src="https://i.gifer.com/7TwJ.gif" style= "         margin-left: 300px;
-                                                                 width: 800px;
-                                                                 height: 450px;
-                                                                 background-color: #007bff1c;
-    												">
-    </div>
+<div class="se-pre-con">
+    <h4 style="color: #999999;text-align: center;margin-top: 20%">Waiting please...</h4>
 </div>
 
+<div id="wrapper">
 
-<figure>
- <img src="http://www.keejob.com/media/recruiter/recruiter_11351/logo-11351-20161002-164843.png" alt="logo"
-      style="                       width: 450px;
-                                    margin-left: 450px;
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+
+                <span>
+                    {% if name != None and name != null %}
+                        Yooth It: {{ name }}
+                    {% else %}
+                        Yooth It
+                    {% endif %}
+                </span>
+            </li>
+            <li>
+                <a href=" {% url 'accueil' %} ">Home</a>
+            </li>
+            <li>
+                <a href=" {% url 'getAllData' %}" onclick='loader()'>Download</a>
+            </li>
+            <li>
+                <a href=" {% url 'SDAList' %}" onclick='loader()'> SDA List </a>
+            </li>
+            <li>
+                <a href="{% url 'CustomersList' %}" onclick='loader()'> List of Customers </a>
+            </li>
+            <li>
+                <a href="{% url 'AccountsList' %}" onclick='loader()'> List of accounts </a>
+            </li>
+            <li>
+                <a href="{% url 'VendorsList' %}" onclick='loader()'> List of vendors </a>
+            </li>
+            <li>
+                <a href="{% url 'syncroDB' %}" onclick='loader()'> synchronization </a>
+            </li>
+            <li>
+                <a href="https://support.sippysoft.com/support/home"> Help </a>
+            </li>
+             <li>
+                <a href="{% url 'logOut' %}"> Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div id="page-content-wrapper">
+        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div class="container">
+
+
+            <figure>
+                <img src="http://www.keejob.com/media/recruiter/recruiter_11351/logo-11351-20161002-164843.png"
+                     alt="logo"
+                     style="                       width: 450px;
+                                    margin-left: 330px;
 	           ">
-</figure>
- <center> <h4> DIDs List </h4></center>
- <table class="table DID_table col-md-6" id="customers">
-   <thead>
-    <th> Statut </th><th> did  </th><th> incoming_did  </th><th> delegated_to</th><th>i_did </th>
-    <th>description</th><th>i_ivr_application </th><th> i_account </th><th> i_vendor  </th>
-    <th> i_connection </th><th> i_did_delegation </th>
-    </thead>
-        <tbody>
-        {% for d in dids %}
-      <tr>
+            </figure>
+            <center><h4><B> DIDs List </B></h4></center>
+            <table class="table DID_table col-md-6" id="customers">
+                <thead>
+                <th> Statut</th>
+                <th> did</th>
+                <th> incoming_did</th>
+                <th>last_customer</th>
+                <th> delegated_to</th>
+                <th>i_did</th>
+                <th>description</th>
+                <th> i_account</th>
+                <th> i_vendor</th>
+                <th> i_connection</th>
+                </thead>
+                <tbody>
+                {% for d  in dids %}
+                    <tr>
+                        {% if d.status == 0 %}
+                            <td><img src="/static/img/ok.png"
+                                     style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
+                        {% endif %}
+                        {% if d.status == 1 %}
+                            <td><img src="/static/img/blocked.png"
+                                     style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
+                        {% endif %}
+                        {% if d.status == -1 %}
+                            <td> No Account</td>
+                        {% endif %}
+                        {% if d.i_account != '' and d.i_account != null %}
+                            <td><a href=" {% url 'infoAccount' i_account=d.i_account %}"
+                                   class="w3-button w3-blue">{{ d.did }}  </a></td>
+                        {% else %}
+                            <td><a onclick="document.getElementById('id01').style.display='block'"
+                                   class="w3-button w3-blue">{{ d.did }} </a></td>
+                            <div id="id01" class="w3-modal">
+                                <div class="w3-modal-content w3-card-4">
+                                    <header class="w3-container w3-teal">
+        <span onclick="document.getElementById('id01').style.display='none'"
+              class="w3-button w3-display-topright">&times;</span>
+                                        <h2> *** ALERT ***</h2>
+                                    </header>
+                                    <div class="w3-container">
+                                        <p> ****************!!! ERROR !!! *** This DID doesn't have an i_account
+                                            ****************</p>
 
-      {% if d.status == 0 %}
-            <td> <img src="/static/img/ok.png" style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
-      {% endif %}
-      {% if d.status == 1 %}
-            <td> <img src="/static/img/blocked.png" style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
-      {% endif %}
-      {% if d.status == -1 %}
-            <td> No Account </td>
-      {% endif %}
-          {% if d.i_account != '' and d.i_account != null %}
-        <td><a href=" {% url 'infoAccount' i_account=d.i_account %}">{{ d.did  }}  </a></td>
-                {% else %}
-       <td><a href="">{{ d.did }} </a> </td>
-         {% endif %}
-          <td>{{ d.incoming_did  }}</td>
+                                    </div>
+                                </div>
+                            </div>
 
-            {% if d.delegated_to != '' and d.delegated_to != null %}
-                <td><a href="{% url 'infoCustomer' name=d.delegated_to %}">{{ d.delegated_to }} </a> </td>
-                {% else %}
-                 <td><a href="">{{ d.delegated_to }} </a> </td>
-            {% endif %}
-        <td>{{ d.i_did  }}</td>
-        <td>{{ d.description  }}</td>
-            <td>{{ d.i_ivr_application  }}</td>
-        <td>{{ d.i_account  }}</td>
-        <td>{{ d.i_vendor  }}</td>
-        <td>{{ d.i_connection  }}</td>
-        <td>{{ d.i_did_delegation  }}</td>
+                        {% endif %}
+                        <td>{{ d.incoming_did }}</td>
 
-        </tr>
-        {% endfor %}
-       </tbody>
- </table>
+                        {% if d.last_customer != '' and d.last_customer != None and d.last_customer != null %}
+                            <td><a href="{% url 'infoCustomer' name=d.last_customer %}"
+                                   class="w3-button w3-blue">{{ d.last_customer }} </a></td>
+                        {% else %}
+                            <td>{{ d.last_customer }} </td>
+                        {% endif %}
 
- <form action="{% url 'SDAList' %}" method="post" >
-    {% csrf_token %}
-         <input type="submit" name="SDA"  value="SDA" id="tri_sda" style="width: 85.99306px;height: 35.99306px;background-color:#55bff2;text-shadow:0 0 3px #FF0000;">
- </form>
+                        {% if d.delegated_to != '' and d.delegated_to != None and d.delegated_to != null %}
+                            <td><a href="{% url 'infoCustomer' name=d.delegated_to %}"
+                                   class="w3-button w3-blue">{{ d.delegated_to }} </a></td>
+                        {% else %}
+                            <td>{{ d.delegated_to }} </td>
+                        {% endif %}
+                        <td>{{ d.i_did }}</td>
+                        <td>{{ d.description }}</td>
+                        <td>{{ d.i_account }}</td>
+                        <td>{{ d.i_vendor }}</td>
+                        <td>{{ d.i_connection }}</td>
 
 
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-  <script>
-    $(document).ready(function()
-    {
-        $(".DID_table").DataTable();
-    })
-    </script>
+            <script>
+                $(document).ready(function () {
+                    $(".DID_table").DataTable();
+                })
+            </script>
+        </div>
+    </div>
+
 </div>
-<script type="text/javascript">// <![CDATA[
-        function preloader(){
-            document.getElementById("output").style.display = "none";
-            document.getElementById("content").style.display = "block";
-        }//preloader
-        window.onload = preloader;
-// ]]></script>
+<script type="text/javascript">
+
+    $(window).load(function () {
+
+        $(".se-pre-con").fadeOut("slow");
+    });
+
+    function loader() {
+        $(".se-pre-con").show('slow')
+    }
+
+</script>
 </body>
 </html>

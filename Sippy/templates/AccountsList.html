@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>SDA list</title>
+    <title> Account list</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
@@ -96,10 +96,10 @@
                 <a href=" {% url 'didsList' %}" onclick='loader()'> DIDs List </a>
             </li>
             <li>
-                <a href="{% url 'CustomersList' %}" onclick='loader()'> List of Customers </a>
+                <a href=" {% url 'SDAList' %}" onclick='loader()'> SDA List </a>
             </li>
             <li>
-                <a href="{% url 'AccountsList' %}" onclick='loader()'> List of accounts </a>
+                <a href="{% url 'CustomersList' %}" onclick='loader()'> List of Customers </a>
             </li>
             <li>
                 <a href="{% url 'VendorsList' %}" onclick='loader()'> List of vendors </a>
@@ -110,7 +110,7 @@
             <li>
                 <a href="https://support.sippysoft.com/support/home"> Help </a>
             </li>
-            <li>
+             <li>
                 <a href="{% url 'logOut' %}"> Logout</a>
             </li>
         </ul>
@@ -133,82 +133,46 @@
                                     margin-left: 330px;
 	           ">
             </figure>
-            <center><h4><B> SDA List </B></h4></center>
+            <center><h4><B> Account List </B></h4></center>
             <table class="table DID_table col-md-6" id="customers">
                 <thead>
-                <th> Statut</th>
-                <th> did</th>
-                <th> incoming_did</th>
-                <th>last_customer</th>
-                <th> delegated_to</th>
-                <th>i_did</th>
-                <th>description</th>
+                <th> Status</th>
                 <th> i_account</th>
-                <th> i_vendor</th>
-                <th> i_connection</th>
+                <th> balance</th>
+                <th> username</th>
+                <th> created_by</th>
+                <th>company_name</th>
+                <th> description</th>
+                <th> payment_currency</th>
+                <th> credit_limit</th>
                 </thead>
                 <tbody>
-                {% for d  in SDAList %}
+                {% for d in AccountsList %}
                     <tr>
-                        {% if d.status == 0 %}
+
+                        {% if d.blocked == 0 %}
                             <td><img src="/static/img/ok.png"
                                      style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
                         {% endif %}
-                        {% if d.status == 1 %}
+                        {% if d.blocked == 1 %}
                             <td><img src="/static/img/blocked.png"
                                      style="margin-left: 15px;max-width: 20px;max-height: 20px;"></td>
                         {% endif %}
-                        {% if d.status == -1 %}
-                            <td> No Account</td>
-                        {% endif %}
-                        {% if d.i_account != '' and d.i_account != null %}
-                            <td><a href=" {% url 'infoAccount' i_account=d.i_account %}"
-                                   class="w3-button w3-blue">{{ d.did }}  </a></td>
-                        {% else %}
-                            <td><a onclick="document.getElementById('id01').style.display='block'"
-                                   class="w3-button w3-blue">{{ d.did }} </a></td>
-                            <div id="id01" class="w3-modal">
-                                <div class="w3-modal-content w3-card-4">
-                                    <header class="w3-container w3-teal">
-        <span onclick="document.getElementById('id01').style.display='none'"
-              class="w3-button w3-display-topright">&times;</span>
-                                        <h2> *** ALERT ***</h2>
-                                    </header>
-                                    <div class="w3-container">
-                                        <p> ****************!!! ERROR !!! *** This DID doesn't have an i_account
-                                            ****************</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        {% endif %}
-                        <td>{{ d.incoming_did }}</td>
-
-                        {% if d.last_customer != '' and d.last_customer != None and d.last_customer != null %}
-                            <td><a href="{% url 'infoCustomer' name=d.last_customer %}"
-                                   class="w3-button w3-blue">{{ d.last_customer }} </a></td>
-                        {% else %}
-                            <td>{{ d.last_customer }} </td>
-                        {% endif %}
-
-                        {% if d.delegated_to != '' and d.delegated_to != None and d.delegated_to != null %}
-                            <td><a href="{% url 'infoCustomer' name=d.delegated_to %}"
-                                   class="w3-button w3-blue">{{ d.delegated_to }} </a></td>
-                        {% else %}
-                            <td>{{ d.delegated_to }} </td>
-                        {% endif %}
-                        <td>{{ d.i_did }}</td>
-                        <td>{{ d.description }}</td>
                         <td>{{ d.i_account }}</td>
-                        <td>{{ d.i_vendor }}</td>
-                        <td>{{ d.i_connection }}</td>
+                        <td>{{ d.balance }}</td>
+                        <td>{{ d.username }}</td>
+                        <td>{{ d.created_by }}</td>
+                        <td>{{ d.company_name }}</td>
+                        <td>{{ d.description }}</td>
+                        <td>{{ d.payment_currency }}</td>
+                        <td>{{ d.credit_limit }}</td>
 
 
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+
 
             <script>
                 $(document).ready(function () {

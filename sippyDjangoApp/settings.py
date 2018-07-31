@@ -26,6 +26,8 @@ SECRET_KEY = 'gq0p0^*+$5wynv_3(59%=vwio!(w(wf2r#9kxz2&mw9+&=7tgv'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 5000
+
 
 
 # Application definition

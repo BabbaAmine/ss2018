@@ -179,8 +179,8 @@ table {
 	           ">
 </figure>
 
-    <center>  <button id="myBtn"> <h2 style="color: #03415e"> <B> Info Account for '{{ customer.name  }}' </B></h2> </button> </center>
-
+    <center>  <button id="myBtn"> <h2 style="color: #03415e"> <B> Info Account for '{{ Account.username }}' </B></h2> </button> </center>
+    <center>  <button id="BtnHistor" style="margin-top: 15px;"> <h2 style="color: #03415e"><B> Historique Account '{{ Account.username }}' </B></h2> </button></center>
     <body style="background-color: #007bff1c;" >
 <!-- The Modal -->
 <div id="myModal" class="modal" >
@@ -191,13 +191,61 @@ table {
 
      <table class="table DID_table col-md-6" >
           <tbody>
-   <tr>
-      <th>Username</th>
-       <th> {{ Account.username }}</th>
-   </tr>
+          <tr>
+              <th>Username</th>
+              <th> {{ Account.username }}</th>
+         </tr>
+          <tr>
+             <th> blocked  </th>
+             <th>{{ Account.blocked  }}</th>
+         </tr>
+          <tr>
+             <th> balance </th>
+             <th>{{ Account.balance  }}</th>
+         </tr>
+          <tr>
+             <th> base_currency </th>
+             <th>{{ Account.base_currency  }}</th>
+         </tr>
+          <tr>
+             <th> expiration_date </th>
+             <th>{{ Account.expiration_date }}</th>
+         </tr>
+          <tr>
+             <th> first use  </th>
+             <th>{{ Account.first_use  }}</th>
+         </tr>
+          <tr>
+             <th> created_on </th>
+             <th>{{ Account.created_on }}</th>
+         </tr>
+           <tr>
+             <th> created by </th>
+             <th>{{ Account.created_by }}</th>
+         </tr>
+          <tr>
+             <th> updated On   </th>
+             <th>{{ Account.updated_on   }}</th>
+         </tr>
+          <tr>
+             <th> updated by   </th>
+             <th>{{ Account.updated_by   }}</th>
+         </tr>
+          <tr>
+             <th> deleted_by </th>
+             <th>{{ Account.deleted_by }}</th>
+         </tr>
+          <tr>
+             <th> last_login </th>
+             <th>{{ Account.last_login }}</th>
+         </tr>
+          <tr>
+             <th> last_password_change </th>
+             <th>{{ Account.last_password_change }}</th>
+         </tr>
          <tr>
-             <th> authname </th>
-             <th>{{ Account.authname  }}</th>
+             <th> max_credit_time </th>
+             <th>{{ Account.max_credit_time  }}</th>
          </tr>
          <tr>
              <th> credit_limit </th>
@@ -210,14 +258,6 @@ table {
          <tr>
              <th> i_time_zone </th>
              <th>{{ Account.i_time_zone  }}</th>
-         </tr>
-         <tr>
-             <th> balance </th>
-             <th>{{ Account.balance  }}</th>
-         </tr>
-         <tr>
-             <th> blocked  </th>
-             <th>{{ Account.blocked  }}</th>
          </tr>
          <tr>
              <th> payment_currency </th>
@@ -235,18 +275,17 @@ table {
              <th> company_name </th>
              <th>{{ Account.company_name  }}</th>
          </tr>
-          <tr>
-             <th> first use  </th>
-             <th>{{ Account.first_use  }}</th>
-         </tr>
-          <tr>
-             <th> updated by   </th>
-             <th>{{ Account.updated_by   }}</th>
-         </tr>
            <tr>
-             <th> created by </th>
-             <th>{{ Account.created_by }}</th>
+             <th> password </th>
+             <th>{{ Account.password }}</th>
          </tr>
+          <tr>
+             <th> i_account </th>
+             <th>{{ Account.i_account }}</th>
+         </tr>
+
+
+
           </tbody>
      </table>
 

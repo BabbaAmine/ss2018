@@ -1,0 +1,187 @@
+<html>
+    <head>
+    <title> Vendor list</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <link href="/static/css/menu.css" rel="stylesheet" id="bootstrap-css">
+        <script src="/static/js/js.js"></script>
+
+        <style>
+
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(/static/img/Preloader.gif) center no-repeat #fff;
+        }
+
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 15px;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 18px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 17px;
+            padding-bottom: 18px;
+            text-align: center;
+            background-color: #55bff2;
+            color: #03415e;
+        }
+    </style>
+
+    </head>
+ <body style="background-color: #007bff1c;" >
+
+ <div class="se-pre-con">
+    <h4 style="color: #999999;text-align: center;margin-top: 20%">Waiting please...</h4>
+</div>
+
+ <div id="wrapper">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand">
+
+                <span>
+                    {% if name != None and name != null %}
+                        Yooth It: {{ name }}
+                    {% else %}
+                        Yooth It
+                    {% endif %}
+                </span>
+            </li>
+            <li>
+                <a href=" {% url 'accueil' %} ">Home</a>
+            </li>
+            <li>
+                <a href=" {% url 'getAllData' %}" onclick='loader()'>Download</a>
+            </li>
+            <li>
+                <a href=" {% url 'didsList' %}" onclick='loader()'> DIDs List </a>
+            </li>
+            <li>
+                <a href=" {% url 'SDAList' %}" onclick='loader()'> SDA List </a>
+            </li>
+            <li>
+                <a href="{% url 'CustomersList' %}" onclick='loader()'> List of Customers </a>
+            </li>
+            <li>
+                <a href="{% url 'AccountsList' %}" onclick='loader()'> List of accounts </a>
+            </li>
+            <li>
+                <a href="{% url 'syncroDB' %}" onclick='loader()'> synchronization </a>
+            </li>
+            <li>
+                <a href="https://support.sippysoft.com/support/home"> Help </a>
+            </li>
+             <li>
+                <a href="{% url 'logOut' %}"> Logout</a>
+            </li>
+            </ul>
+        </nav>
+
+
+<div id="page-content-wrapper">
+ <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+    			<span class="hamb-middle"></span>
+				<span class="hamb-bottom"></span>
+            </button>
+            <div class="container">
+
+
+
+
+<figure>
+ <img src="http://www.keejob.com/media/recruiter/recruiter_11351/logo-11351-20161002-164843.png" alt="logo"
+      style="                       width: 450px;
+                                    margin-left: 330px;
+	           ">
+</figure>
+ <center> <h4> <B> Vendors List </B>  </h4></center>
+ <table class="table DID_table col-md-6" id="customers">
+   <thead>
+   <th> i_vendor </th><th> name  </th><th> web_login  </th><th> email </th><th>balance </th>
+    <th>first_name</th><th> last_name </th><th> street_addr  </th>
+    <th> credit_limit </th>
+
+    </thead>
+        <tbody>
+       {% for d in VendorsList %}
+           <tr>
+
+        <td>{{ d.i_vendor }}</td>
+        <td>{{ d.name  }}</td>
+            <td>{{ d.web_login  }}</td>
+        <td>{{ d.email  }}</td>
+        <td>{{ d.balance  }}</td>
+        <td>{{ d.first_name }}</td>
+        <td>{{ d.last_name  }}</td>
+        <td>{{ d.street_addr }}</td>
+        <td>{{ d.credit_limit }}</td>
+
+
+        </tr>
+        {% endfor %}
+       </tbody>
+ </table>
+
+
+
+
+  <script>
+    $(document).ready(function()
+    {
+        $(".DID_table").DataTable();
+    })
+    </script>
+            </div>
+</div>
+
+</div>
+<script type="text/javascript">
+
+    $(window).load(function() {
+
+		$(".se-pre-con").fadeOut("slow");
+	});
+
+    function loader(){
+            	$(".se-pre-con").show('slow')
+        }
+
+</script>
+</body>
+</html>
