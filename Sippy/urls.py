@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^CustomersList/$', views.CustomersList, name='CustomersList'),
     url(r'^AccountsList/$', views.AccountsList, name='AccountsList'),
     url(r'^VendorsList/$', views.VendorsList, name='VendorsList'),
-    url(r'^Syncronisation/$', views.syncronisation, name='syncroDB')
+    url(r'^Syncronisation/$', views.syncronisation, name='syncroDB'),
+    url(r'', views.accueil, name='accueil'),
 
 ]
