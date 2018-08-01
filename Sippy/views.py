@@ -736,7 +736,7 @@ def syncronisation(request):
             verifDid()
             did.objects.all().delete()
             getAllData()
-            return render(request, 'accueil.html',{'name':request.session['User']})
+        return render(request, 'accueil.html',{'name':request.session['User']})
 
 
 def verifDid():
