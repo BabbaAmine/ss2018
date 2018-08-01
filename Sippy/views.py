@@ -75,11 +75,14 @@ def didList(request):
         for item in didstabe:
             row = {}
 
-            last = histDid.objects.get(did=str(item.did))
-            if (last.delegated_to != item.delegated_to and last.delegated_to != None and last.delegated_to != ''):
-                i_Last_customer = int(last.delegated_to)
-                lastCustomerInfo = customer.objects.get(i_customer=i_Last_customer)
-                row['last_customer'] = lastCustomerInfo.name
+            if(histDid.objects.all().count() != 0):
+                last = histDid.objects.get(did=str(item.did))
+                if (last.delegated_to != item.delegated_to and last.delegated_to != None and last.delegated_to != ''):
+                    i_Last_customer = int(last.delegated_to)
+                    lastCustomerInfo = customer.objects.get(i_customer=i_Last_customer)
+                    row['last_customer'] = lastCustomerInfo.name
+            else:
+                row['last_customer'] =''
 
             row['did'] = item.did
             row['incoming_did'] = item.incoming_did
@@ -131,11 +134,15 @@ def SDAList(request):
 
                 row = {}
 
-                last = histDid.objects.get(did=str(item.did))
-                if (last.delegated_to != item.delegated_to and last.delegated_to != None and last.delegated_to != ''):
-                    i_Last_customer = int(last.delegated_to)
-                    lastCustomerInfo = customer.objects.get(i_customer=i_Last_customer)
-                    row['last_customer'] = lastCustomerInfo.name
+                if (histDid.objects.all().count() != 0):
+                    last = histDid.objects.get(did=str(item.did))
+                    if (
+                            last.delegated_to != item.delegated_to and last.delegated_to != None and last.delegated_to != ''):
+                        i_Last_customer = int(last.delegated_to)
+                        lastCustomerInfo = customer.objects.get(i_customer=i_Last_customer)
+                        row['last_customer'] = lastCustomerInfo.name
+                else:
+                    row['last_customer'] =''
 
                 row['did'] = item.did
                 row['incoming_did'] = item.incoming_did

@@ -17,5 +17,4 @@ urlpatterns = [
     url(r'^VendorsList/$', views.VendorsList, name='VendorsList'),
     url(r'^Syncronisation/$', views.syncronisation, name='syncroDB'),
     url(r'', views.accueil, name='accueil')
-
 ]
