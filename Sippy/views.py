@@ -732,6 +732,8 @@ def syncronisation(request):
                 print('*******TABLE COPIED********')
                 did.objects.all().delete()
                 getAllData()
+            else:
+                getAllData()
         else:
             verifDid()
             did.objects.all().delete()
